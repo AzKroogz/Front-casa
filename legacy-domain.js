@@ -52,6 +52,10 @@
     var maxDay = new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate();
     return year + '-' + pad(monthIndex + 1) + '-' + pad(Math.min(p.day, maxDay));
   }
+  function resolveQuickDate(preset, today) { if (preset==='none') return null; if (preset==='today') return today; if (preset==='tomorrow') return addDays(today,1); if (preset==='week') return addDays(today,7); return null; }
+  function parseManualDate(value) { var m=/^\s*(\d{1,2})\/(\d{1,2})\/(\d{4})\s*$/.exec(String(value||'')),day,month,year,d;if(!m)return null;day=Number(m[1]);month=Number(m[2]);year=Number(m[3]);d=new Date(Date.UTC(year,month-1,day));if(d.getUTCFullYear()!==year||d.getUTCMonth()+1!==month||d.getUTCDate()!==day)return null;return year+'-'+pad(month)+'-'+pad(day); }
+  function formatManualDate(value) { var p=parseDate(value); return p ? pad(p.day)+'/'+pad(p.month)+'/'+p.year : ''; }
+  function inferDatePreset(value,today) { if(!value)return 'none'; if(value===today)return 'today'; if(value===addDays(today,1))return 'tomorrow'; if(value===addDays(today,7))return 'week'; return 'custom'; }
   function nextDueDate(task) {
     var n = Math.max(1, Number(task.repeat_interval || 1));
     if (task.repeat_type === 'daily') return addDays(task.due_date, n);
@@ -93,5 +97,5 @@
     todayTasks.sort(compareTasks); week.sort(compareTasks); shopping.sort(compareTasks); upcoming.sort(compareTasks);
     return { today:todayTasks, week:week, shopping:shopping, pendingCount:todayTasks.length+week.length+shopping.length, nextReminder:upcoming.length ? upcoming[0] : null };
   }
-  L.pad=pad; L.isoToday=isoToday; L.prettyDate=prettyDate; L.classifyTask=classifyTask; L.completeTask=completeTask; L.rowToTask=rowToTask; L.taskToRow=taskToRow; L.buildDashboard=buildDashboard;
+  L.pad=pad; L.isoToday=isoToday; L.resolveQuickDate=resolveQuickDate; L.parseManualDate=parseManualDate; L.formatManualDate=formatManualDate; L.inferDatePreset=inferDatePreset; L.prettyDate=prettyDate; L.classifyTask=classifyTask; L.completeTask=completeTask; L.rowToTask=rowToTask; L.taskToRow=taskToRow; L.buildDashboard=buildDashboard;
 }(window.CasaLegacy = window.CasaLegacy || {}));
