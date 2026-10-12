@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#15191f">
+  <title>Casa · Tablero</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="app-shell" id="app-shell">
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="brand-mark" aria-hidden="true">⌂</div>
+        <div>
+          <p class="eyebrow">TABLERO DE CASA</p>
+          <h1>Hola, equipo</h1>
+          <p class="date-line" id="date-line"></p>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <span class="status-pill" id="connection-status">● En línea</span>
+        <button class="primary-button" id="add-button" type="button">＋ Agregar</button>
+      </div>
+    </header>
+
+    <section class="summary-strip" aria-label="Resumen">
+      <div class="summary-card">
+        <span class="summary-label">Pendientes visibles</span>
+        <strong class="summary-value" id="pending-count">0</strong>
+      </div>
+      <div class="summary-card summary-card-wide">
+        <span class="summary-label">Próximo recordatorio</span>
+        <strong class="summary-text" id="next-reminder">Nada programado</strong>
+      </div>
+    </section>
+
+    <section class="board" aria-label="Tareas de la casa">
+      <article class="column column-today">
+        <div class="column-header">
+          <div>
+            <p class="column-kicker">AHORA</p>
+            <h2>Hoy</h2>
+          </div>
+          <span class="count-badge" id="today-count">0</span>
+        </div>
+        <div class="task-list" id="today-list"></div>
+      </article>
+
+      <article class="column column-week">
+        <div class="column-header">
+          <div>
+            <p class="column-kicker">PRÓXIMO</p>
+            <h2>Esta semana</h2>
+          </div>
+          <span class="count-badge" id="week-count">0</span>
+        </div>
+        <div class="task-list" id="week-list"></div>
+      </article>
+
+      <article class="column column-shopping">
+        <div class="column-header">
+          <div>
+            <p class="column-kicker">LISTA</p>
+            <h2>Compras</h2>
+          </div>
+          <span class="count-badge" id="shopping-count">0</span>
+        </div>
+        <div class="task-list" id="shopping-list"></div>
+      </article>
+    </section>
+  </main>
+
+  <section class="sleep-screen" id="sleep-screen" hidden aria-label="Modo reposo">
+    <div class="sleep-inner">
+      <p class="sleep-kicker">CASA</p>
+      <div class="sleep-clock" id="sleep-clock">00:00</div>
+      <p class="sleep-date" id="sleep-date"></p>
+      <div class="sleep-summary">
+        <span id="sleep-pending">0 pendientes</span>
+        <span class="sleep-dot">•</span>
+        <span id="sleep-reminder">Sin recordatorios próximos</span>
+      </div>
+      <p class="sleep-hint">Tocá la pantalla para volver</p>
+    </div>
+  </section>
+
+  <div class="modal-backdrop" id="task-modal" hidden>
+    <section class="task-modal" role="dialog" aria-modal="true" aria-labelledby="form-title">
+      <div class="modal-header">
+        <div>
+          <p class="eyebrow">ANOTACIÓN RÁPIDA</p>
+          <h2 id="form-title">Nueva tarea</h2>
+        </div>
+        <button class="icon-button" id="close-modal" type="button" aria-label="Cerrar">×</button>
+      </div>
+
+      <form id="task-form">
+        <label class="field field-title">
+          <span>¿Qué hay que hacer?</span>
+          <input id="task-title" name="title" type="text" maxlength="140" autocomplete="off" placeholder="Ej. Pagar veterinario" required>
+        </label>
+
+        <div class="form-grid">
+          <label class="field">
+            <span>Tipo</span>
+            <select id="task-category" name="category">
+              <option value="task">Tarea</option>
+              <option value="shopping">Compra</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Para</span>
+            <select id="task-assigned" name="assigned_to">
+              <option value="both">Ambos</option>
+              <option value="nico">Nico</option>
+              <option value="diana">Diana</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Fecha</span>
+            <input id="task-due" name="due_date" type="date">
+          </label>
+          <label class="field">
+            <span>Repetir</span>
+            <select id="task-repeat" name="repeat_type">
+              <option value="">No repetir</option>
+              <option value="daily">Cada X días</option>
+              <option value="weekly">Cada X semanas</option>
+              <option value="monthly">Cada X meses</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="recurrence-fields" id="recurrence-fields" hidden>
+          <label class="field">
+            <span>Cada cuántos</span>
+            <input id="task-repeat-interval" name="repeat_interval" type="number" min="1" max="365" value="1" inputmode="numeric">
+          </label>
+          <label class="field">
+            <span>Mostrar antes</span>
+            <div class="input-suffix">
+              <input id="task-show-before" name="show_days_before" type="number" min="0" max="365" value="7" inputmode="numeric">
+              <span>días</span>
+            </div>
+          </label>
+        </div>
+
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+
+        <div class="modal-actions">
+          <button class="secondary-button" id="cancel-modal" type="button">Cancelar</button>
+          <button class="primary-button" type="submit">Guardar</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
