@@ -1,3 +1,7 @@
 home-dashboard-standalone.html
 home-dashboard-prototype.zip
 preview.png
+.env
+.env.*
+!.env.example
+config.local.js
