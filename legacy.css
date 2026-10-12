@@ -1,0 +1,240 @@
+/* Fallback visual para navegadores Android antiguos. Sólo se activa por clase. */
+.legacy-browser body {
+  background: #0f1216;
+  color: #f4f6f8;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.legacy-browser .auth-screen {
+  min-height: 100vh;
+  display: block;
+  padding: 28px 18px;
+}
+
+.legacy-browser .auth-card {
+  width: auto;
+  max-width: 420px;
+  margin: 26px auto;
+  padding: 28px;
+  border: 1px solid #343b45;
+  border-radius: 24px;
+  background: #1d232b;
+  color: #f4f6f8;
+}
+
+.legacy-browser .brand-mark {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  background: #d7ff63;
+  color: #11140a;
+}
+
+.legacy-browser .eyebrow,
+.legacy-browser .column-kicker,
+.legacy-browser .field > span,
+.legacy-browser .date-line,
+.legacy-browser .summary-label,
+.legacy-browser .task-meta {
+  color: #9aa4b2;
+}
+
+.legacy-browser input,
+.legacy-browser select {
+  background: #101419;
+  color: #f4f6f8;
+  border: 1px solid #353e4a;
+}
+
+.legacy-browser .primary-button {
+  background: #d7ff63;
+  color: #11140a;
+}
+
+.legacy-browser .secondary-button,
+.legacy-browser .mini-button,
+.legacy-browser .icon-button {
+  color: #f4f6f8;
+  border-color: #2a313b;
+  background: #1e242c;
+}
+
+.legacy-browser .app-shell {
+  width: auto;
+  max-width: 1500px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.legacy-browser .topbar,
+.legacy-browser .brand-block,
+.legacy-browser .topbar-actions,
+.legacy-browser .summary-strip,
+.legacy-browser .column-header,
+.legacy-browser .task-card,
+.legacy-browser .task-actions,
+.legacy-browser .modal-header,
+.legacy-browser .modal-actions {
+  display: -webkit-flex;
+  display: flex;
+}
+
+.legacy-browser .topbar,
+.legacy-browser .column-header,
+.legacy-browser .modal-header {
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.legacy-browser .brand-block,
+.legacy-browser .topbar-actions,
+.legacy-browser .task-card {
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.legacy-browser .brand-block > *,
+.legacy-browser .topbar-actions > *,
+.legacy-browser .task-actions > * {
+  margin-right: 10px;
+}
+
+.legacy-browser .summary-strip {
+  margin: 0 -7px 18px;
+}
+
+.legacy-browser .summary-card {
+  display: block;
+  -webkit-flex: 1;
+  flex: 1;
+  margin: 0 7px;
+  background: #171b21;
+  border-color: #2a313b;
+}
+
+.legacy-browser .board:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.legacy-browser .column {
+  float: left;
+  width: 31.3%;
+  min-height: 430px;
+  margin-right: 3%;
+  background: #171b21;
+  border-color: #2a313b;
+}
+
+.legacy-browser .column:last-child {
+  margin-right: 0;
+}
+
+.legacy-browser .task-list {
+  display: block;
+}
+
+.legacy-browser .task-card {
+  width: 100%;
+  margin-bottom: 12px;
+  background: #1e242c;
+  color: #f4f6f8;
+}
+
+.legacy-browser .task-main {
+  -webkit-flex: 1;
+  flex: 1;
+  margin: 0 10px;
+}
+
+.legacy-browser .meta-chip {
+  display: inline-block;
+  margin: 4px 5px 0 0;
+  background: #272e37;
+}
+
+.legacy-browser .modal-backdrop {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  padding: 30px 20px;
+  background: #090b0e;
+}
+
+.legacy-browser .task-modal {
+  width: auto;
+  max-width: 680px;
+  margin: 0 auto;
+  background: #171c22;
+}
+
+.legacy-browser .form-grid,
+.legacy-browser .recurrence-fields {
+  display: block;
+}
+
+.legacy-browser .form-grid .field,
+.legacy-browser .recurrence-fields .field {
+  margin-bottom: 14px;
+}
+
+.legacy-browser .field {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.legacy-browser .field > span {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.legacy-browser .sleep-screen {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #090b0e;
+}
+
+.legacy-browser .form-error {
+  background: #442d36;
+  color: #ff9ba8;
+}
+
+@media (max-width: 900px) {
+  .legacy-browser .column {
+    float: none;
+    width: auto;
+    min-height: 0;
+    margin: 0 0 16px;
+  }
+  .legacy-browser .topbar {
+    display: block;
+  }
+  .legacy-browser .topbar-actions {
+    margin-top: 16px;
+  }
+  .legacy-browser .summary-strip {
+    display: block;
+    margin: 0 0 18px;
+  }
+  .legacy-browser .summary-card {
+    margin: 0 0 12px;
+  }
+}
+
+.legacy-browser .auth-screen[hidden],
+.legacy-browser .app-shell[hidden],
+.legacy-browser .modal-backdrop[hidden],
+.legacy-browser .sleep-screen[hidden],
+.legacy-browser .recurrence-fields[hidden],
+.legacy-browser .form-error[hidden] {
+  display: none !important;
+}
