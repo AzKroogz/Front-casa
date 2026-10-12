@@ -13,6 +13,7 @@
       try {
         supportsModernCss = !!(window.CSS && CSS.supports && CSS.supports('width', 'min(100%, 1px)'));
       } catch (error) {}
+      window.__LEGACY_JS__ = !supportsModules;
       if (!supportsModules || !supportsModernCss) {
         document.documentElement.className += ' legacy-browser';
       }
@@ -48,8 +49,7 @@
       <div class="brand-block">
         <div class="brand-mark" aria-hidden="true">⌂</div>
         <div>
-          <p class="eyebrow">TABLERO DE CASA</p>
-          <h1>Hola, equipo</h1>
+          <p class="eyebrow">CASA</p>
           <p class="date-line" id="date-line"></p>
         </div>
       </div>
@@ -132,6 +132,14 @@
       </div>
 
       <form id="task-form">
+        <div class="quick-templates" aria-label="Plantillas rápidas">
+          <button class="template-button" type="button" data-task-template="bill" data-template-title="Pagar cuenta" data-template-category="task">💸 <span>Pagar</span></button>
+          <button class="template-button" type="button" data-task-template="shopping" data-template-title="Hacer compra" data-template-category="shopping">🛒 <span>Compra</span></button>
+          <button class="template-button" type="button" data-task-template="pet" data-template-title="Veterinaria / mascota" data-template-category="task">🐾 <span>Mascota</span></button>
+          <button class="template-button" type="button" data-task-template="cleaning" data-template-title="Limpieza" data-template-category="task">🧼 <span>Limpieza</span></button>
+          <button class="template-button" type="button" data-task-template="home" data-template-title="Pendiente de casa" data-template-category="task">🏠 <span>Casa</span></button>
+        </div>
+
         <label class="field field-title">
           <span>¿Qué hay que hacer?</span>
           <input id="task-title" name="title" type="text" maxlength="140" autocomplete="off" placeholder="Ej. Pagar veterinario" required>
@@ -149,12 +157,24 @@
             <span>Para</span>
             <select id="task-assigned" name="assigned_to">
               <option value="both">Ambos</option>
+              <option value="nico">Nico</option>
+              <option value="diana">Diana</option>
             </select>
           </label>
-          <label class="field">
+          <div class="field date-field">
             <span>Fecha</span>
-            <input id="task-due" name="due_date" type="date">
-          </label>
+            <input id="task-due" name="due_date" type="hidden">
+            <div class="quick-dates" role="group" aria-label="Fecha rápida">
+              <button type="button" class="date-preset active" data-date-preset="none">Sin fecha</button>
+              <button type="button" class="date-preset" data-date-preset="today">Hoy</button>
+              <button type="button" class="date-preset" data-date-preset="tomorrow">Mañana</button>
+              <button type="button" class="date-preset" data-date-preset="week">+7 días</button>
+              <button type="button" class="date-preset" data-date-preset="custom">Otra</button>
+            </div>
+            <div class="manual-date" id="manual-date-wrap" hidden>
+              <input id="task-due-manual" type="text" inputmode="numeric" autocomplete="off" placeholder="dd/mm/aaaa" aria-label="Fecha manual">
+            </div>
+          </div>
           <label class="field">
             <span>Repetir</span>
             <select id="task-repeat" name="repeat_type">
