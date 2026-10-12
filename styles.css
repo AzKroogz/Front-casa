@@ -15,6 +15,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html, body { min-height: 100%; }
 body {
   margin: 0;
@@ -201,9 +202,9 @@ body.modal-open { overflow: hidden; }
 .sleep-screen[hidden] { display: none; }
 .sleep-inner { width: min(760px, 100%); }
 .sleep-kicker { margin: 0 0 8px; color: var(--accent); font-weight: 900; letter-spacing: .24em; font-size: 13px; }
-.sleep-clock { font-size: clamp(88px, 18vw, 210px); line-height: .9; letter-spacing: -.07em; font-weight: 850; font-variant-numeric: tabular-nums; }
-.sleep-date { margin: 24px 0 0; color: var(--muted); font-size: clamp(20px, 3vw, 30px); }
-.sleep-summary { margin: 38px auto 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; color: #d8dde4; font-size: clamp(16px, 2.2vw, 22px); }
+.sleep-clock { font-size: clamp(120px, 24vw, 280px); line-height: .9; letter-spacing: -.07em; font-weight: 850; font-variant-numeric: tabular-nums; }
+.sleep-date { margin: 28px 0 0; color: var(--muted); font-size: clamp(24px, 4vw, 38px); }
+.sleep-summary { margin: 44px auto 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; color: #d8dde4; font-size: clamp(17px, 2.3vw, 24px); }
 .sleep-dot { color: #4c5562; }
 .sleep-hint { margin: 60px 0 0; color: #59616c; font-size: 13px; }
 
@@ -217,9 +218,9 @@ body.modal-open { overflow: hidden; }
 .auth-card {
   width: min(420px, 100%);
   padding: 28px;
-  border: 1px solid rgba(255,255,255,.12);
+  border: 1px solid var(--border, rgba(255,255,255,.12));
   border-radius: 24px;
-  background: #1d232b;
+  background: var(--panel, #1d232b);
   box-shadow: 0 20px 60px rgba(0,0,0,.25);
 }
 
@@ -228,3 +229,174 @@ body.modal-open { overflow: hidden; }
 .auth-card form { display: grid; gap: 16px; }
 .auth-submit { width: 100%; margin-top: 4px; }
 .compact-button { min-height: 42px; padding: 0 14px; }
+
+/* Tablet-first task creation and dashboard emphasis */
+.quick-templates,
+.quick-dates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.quick-templates { margin: 0 0 18px; }
+.template-button,
+.date-preset {
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--surface-2);
+  color: var(--text);
+  padding: 0 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.template-button { font-size: 15px; }
+.template-button span { margin-left: 4px; }
+.date-preset.active {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+.manual-date { margin-top: 9px; }
+.manual-date[hidden] { display: none; }
+.modal-actions {
+  position: sticky;
+  bottom: -24px;
+  z-index: 4;
+  margin: 22px -24px -24px;
+  padding: 16px 24px 24px;
+  background: #171c22;
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 900px) {
+  .app-shell { padding: 14px 16px 28px; }
+  .topbar { margin-bottom: 12px; }
+  .brand-mark { width: 48px; height: 48px; border-radius: 15px; font-size: 26px; }
+  .brand-block { gap: 12px; }
+  .date-line { margin-top: 3px; font-size: 15px; }
+  .summary-strip { display: none; }
+  .board { gap: 12px; }
+  .column { padding: 18px; border-radius: 18px; }
+  .column-header { margin-bottom: 12px; }
+  .column-header h2 { font-size: 30px; }
+  .task-card { min-height: 108px; padding: 17px; }
+  .task-title { font-size: 23px; }
+  .task-complete { width: 56px; height: 56px; border-radius: 17px; }
+  .mini-button { width: 48px; height: 48px; }
+  .task-meta { font-size: 14px; }
+  .task-modal { max-height: 92vh; }
+  .quick-templates { margin-bottom: 14px; }
+  .template-button, .date-preset { min-height: 46px; }
+}
+
+@media (max-width: 560px) {
+  .modal-actions {
+    bottom: -20px;
+    margin: 18px -18px -20px;
+    padding: 14px 18px calc(16px + env(safe-area-inset-bottom));
+  }
+}
+
+/* Explicit wall-tablet mode. Activated with ?mode=tablet. */
+html.mode-tablet,
+.mode-tablet body {
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+.mode-tablet .app-shell {
+  width: 100%;
+  max-width: none;
+  height: 100vh;
+  min-height: 0;
+  padding: 10px 12px 12px;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+}
+
+.mode-tablet .topbar {
+  min-height: 58px;
+  margin: 0 0 8px;
+  gap: 12px;
+  align-items: center;
+}
+
+.mode-tablet .brand-block { gap: 10px; }
+.mode-tablet .brand-mark {
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  font-size: 23px;
+}
+.mode-tablet .eyebrow { margin-bottom: 1px; font-size: 10px; }
+.mode-tablet .date-line { margin-top: 2px; font-size: 13px; }
+.mode-tablet .status-pill { display: none; }
+.mode-tablet .topbar-actions { position: static; gap: 8px; }
+.mode-tablet .topbar-actions .primary-button,
+.mode-tablet .topbar-actions .secondary-button {
+  min-height: 44px;
+  border-radius: 13px;
+  padding: 0 15px;
+  box-shadow: none;
+}
+
+.mode-tablet .summary-strip { display: none; }
+.mode-tablet .board {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  overflow: hidden;
+}
+.mode-tablet .column {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  padding: 12px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.mode-tablet .column-header {
+  flex: 0 0 auto;
+  margin-bottom: 8px;
+}
+.mode-tablet .column-kicker { display: none; }
+.mode-tablet .column-header h2 { font-size: 24px; }
+.mode-tablet .count-badge {
+  min-width: 36px;
+  height: 36px;
+  border-radius: 11px;
+}
+.mode-tablet .task-list {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  align-content: start;
+  padding-right: 3px;
+  scrollbar-width: thin;
+}
+.mode-tablet .task-card {
+  min-height: 88px;
+  padding: 13px;
+  border-radius: 15px;
+}
+.mode-tablet .task-title { font-size: 20px; }
+.mode-tablet .task-meta { margin-top: 6px; font-size: 12px; gap: 5px; }
+.mode-tablet .task-complete {
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+}
+.mode-tablet .mini-button {
+  width: 42px;
+  height: 42px;
+}
+.mode-tablet .empty-state { min-height: 120px; padding: 16px; }
+
+/* Phone mode remains a normal scrollable document. */
+.mode-phone body { overflow-y: auto; }
