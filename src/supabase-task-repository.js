@@ -1,10 +1,12 @@
 import { TaskRepository } from './task-repository.js';
+import { normalizeIconKey } from './task-icons.js';
 
 export function rowToTask(row) {
   return {
     id: row.id,
     title: row.title,
     category: row.category,
+    icon_key: normalizeIconKey(row.icon_key),
     assigned_to: row.assigned_to_all ? 'both' : (row.assignee_user_id || 'both'),
     due_date: row.due_date,
     due_time: row.due_time ?? null,
@@ -23,6 +25,7 @@ export function taskToRow(task) {
   const row = {
     title: task.title,
     category: task.category,
+    icon_key: normalizeIconKey(task.icon_key),
     assignee_user_id: task.assigned_to && task.assigned_to !== 'both' ? task.assigned_to : null,
     assigned_to_all: !task.assigned_to || task.assigned_to === 'both',
     due_date: task.due_date || null,

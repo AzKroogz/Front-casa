@@ -52,10 +52,16 @@
     var maxDay = new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate();
     return year + '-' + pad(monthIndex + 1) + '-' + pad(Math.min(p.day, maxDay));
   }
+
   function resolveQuickDate(preset, today) { if (preset==='none') return null; if (preset==='today') return today; if (preset==='tomorrow') return addDays(today,1); if (preset==='week') return addDays(today,7); return null; }
   function parseManualDate(value) { var m=/^\s*(\d{1,2})\/(\d{1,2})\/(\d{4})\s*$/.exec(String(value||'')),day,month,year,d;if(!m)return null;day=Number(m[1]);month=Number(m[2]);year=Number(m[3]);d=new Date(Date.UTC(year,month-1,day));if(d.getUTCFullYear()!==year||d.getUTCMonth()+1!==month||d.getUTCDate()!==day)return null;return year+'-'+pad(month)+'-'+pad(day); }
   function formatManualDate(value) { var p=parseDate(value); return p ? pad(p.day)+'/'+pad(p.month)+'/'+p.year : ''; }
   function inferDatePreset(value,today) { if(!value)return 'none'; if(value===today)return 'today'; if(value===addDays(today,1))return 'tomorrow'; if(value===addDays(today,7))return 'week'; return 'custom'; }
+
+  var ICONS={home:{key:'home',emoji:'🏠',label:'Casa'},bill:{key:'bill',emoji:'💸',label:'Pago'},shopping:{key:'shopping',emoji:'🛒',label:'Compra'},cleaning:{key:'cleaning',emoji:'🧼',label:'Limpieza'},pet:{key:'pet',emoji:'🐾',label:'Mascota'},reminder:{key:'reminder',emoji:'📅',label:'Recordatorio'},repair:{key:'repair',emoji:'🔧',label:'Arreglo'},other:{key:'other',emoji:'📦',label:'Otro'},vehicle:{key:'vehicle',emoji:'🚗',label:'Vehículo'},health:{key:'health',emoji:'🩺',label:'Salud'},paperwork:{key:'paperwork',emoji:'📄',label:'Trámite'},event:{key:'event',emoji:'🎉',label:'Evento'}};
+  function normalizeIconKey(value){return ICONS[value]?value:'other';}
+  function getTaskIcon(value){return ICONS[normalizeIconKey(value)];}
+
   function nextDueDate(task) {
     var n = Math.max(1, Number(task.repeat_interval || 1));
     if (task.repeat_type === 'daily') return addDays(task.due_date, n);
@@ -75,10 +81,10 @@
     out.due_date = nextDueDate(task); out.completed = false; out.last_completed_at = today; return out;
   }
   function rowToTask(row) {
-    return { id:row.id, title:row.title, category:row.category, assigned_to:row.assigned_to_all ? 'both' : (row.assignee_user_id || 'both'), due_date:row.due_date, due_time:row.due_time || null, repeat_type:row.repeat_type === 'none' ? null : row.repeat_type, repeat_interval:row.repeat_interval, show_days_before:row.show_days_before, completed:!!row.completed, completed_at:row.completed_at || null, last_completed_at:row.last_completed_at || null, created_at:row.created_at, updated_at:row.updated_at };
+    return { id:row.id, title:row.title, category:row.category, icon_key:normalizeIconKey(row.icon_key), assigned_to:row.assigned_to_all ? 'both' : (row.assignee_user_id || 'both'), due_date:row.due_date, due_time:row.due_time || null, repeat_type:row.repeat_type === 'none' ? null : row.repeat_type, repeat_interval:row.repeat_interval, show_days_before:row.show_days_before, completed:!!row.completed, completed_at:row.completed_at || null, last_completed_at:row.last_completed_at || null, created_at:row.created_at, updated_at:row.updated_at };
   }
   function taskToRow(task) {
-    return { title:task.title, category:task.category, assignee_user_id:task.assigned_to && task.assigned_to !== 'both' ? task.assigned_to : null, assigned_to_all:!task.assigned_to || task.assigned_to === 'both', due_date:task.due_date || null, due_time:task.due_time || null, repeat_type:task.repeat_type || 'none', repeat_interval:task.repeat_interval || 1, show_days_before:typeof task.show_days_before === 'number' ? task.show_days_before : 7, completed:!!task.completed, completed_at:task.completed_at || null, last_completed_at:task.last_completed_at || null };
+    return { title:task.title, category:task.category, icon_key:normalizeIconKey(task.icon_key), assignee_user_id:task.assigned_to && task.assigned_to !== 'both' ? task.assigned_to : null, assigned_to_all:!task.assigned_to || task.assigned_to === 'both', due_date:task.due_date || null, due_time:task.due_time || null, repeat_type:task.repeat_type || 'none', repeat_interval:task.repeat_interval || 1, show_days_before:typeof task.show_days_before === 'number' ? task.show_days_before : 7, completed:!!task.completed, completed_at:task.completed_at || null, last_completed_at:task.last_completed_at || null };
   }
   function compareTasks(a, b) {
     if (!a.due_date && !b.due_date) return String(a.title).localeCompare(String(b.title));
@@ -97,5 +103,5 @@
     todayTasks.sort(compareTasks); week.sort(compareTasks); shopping.sort(compareTasks); upcoming.sort(compareTasks);
     return { today:todayTasks, week:week, shopping:shopping, pendingCount:todayTasks.length+week.length+shopping.length, nextReminder:upcoming.length ? upcoming[0] : null };
   }
-  L.pad=pad; L.isoToday=isoToday; L.resolveQuickDate=resolveQuickDate; L.parseManualDate=parseManualDate; L.formatManualDate=formatManualDate; L.inferDatePreset=inferDatePreset; L.prettyDate=prettyDate; L.classifyTask=classifyTask; L.completeTask=completeTask; L.rowToTask=rowToTask; L.taskToRow=taskToRow; L.buildDashboard=buildDashboard;
+  L.normalizeIconKey=normalizeIconKey; L.getTaskIcon=getTaskIcon; L.pad=pad; L.isoToday=isoToday; L.resolveQuickDate=resolveQuickDate; L.parseManualDate=parseManualDate; L.formatManualDate=formatManualDate; L.inferDatePreset=inferDatePreset; L.prettyDate=prettyDate; L.classifyTask=classifyTask; L.completeTask=completeTask; L.rowToTask=rowToTask; L.taskToRow=taskToRow; L.buildDashboard=buildDashboard;
 }(window.CasaLegacy = window.CasaLegacy || {}));

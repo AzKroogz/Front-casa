@@ -142,6 +142,25 @@
           <button class="template-button" type="button" data-task-template="home" data-template-title="Pendiente de casa" data-template-category="task">🏠 <span>Casa</span></button>
         </div>
 
+        <div class="icon-picker" aria-label="Categoría visual">
+          <span class="icon-picker-label">Icono</span>
+          <input id="task-icon-key" name="icon_key" type="hidden" value="other">
+          <div class="icon-options" role="group" aria-label="Elegir icono">
+            <button type="button" class="icon-option" data-icon-key="home" aria-label="Casa">🏠<span>Casa</span></button>
+            <button type="button" class="icon-option" data-icon-key="bill" aria-label="Pago">💸<span>Pago</span></button>
+            <button type="button" class="icon-option" data-icon-key="shopping" aria-label="Compra">🛒<span>Compra</span></button>
+            <button type="button" class="icon-option" data-icon-key="cleaning" aria-label="Limpieza">🧼<span>Limpieza</span></button>
+            <button type="button" class="icon-option" data-icon-key="pet" aria-label="Mascota">🐾<span>Mascota</span></button>
+            <button type="button" class="icon-option" data-icon-key="reminder" aria-label="Recordatorio">📅<span>Recordatorio</span></button>
+            <button type="button" class="icon-option" data-icon-key="repair" aria-label="Arreglo">🔧<span>Arreglo</span></button>
+            <button type="button" class="icon-option active" data-icon-key="other" aria-label="Otro">📦<span>Otro</span></button>
+            <button type="button" class="icon-option" data-icon-key="vehicle" aria-label="Vehículo">🚗<span>Vehículo</span></button>
+            <button type="button" class="icon-option" data-icon-key="health" aria-label="Salud">🩺<span>Salud</span></button>
+            <button type="button" class="icon-option" data-icon-key="paperwork" aria-label="Trámite">📄<span>Trámite</span></button>
+            <button type="button" class="icon-option" data-icon-key="event" aria-label="Evento">🎉<span>Evento</span></button>
+          </div>
+        </div>
+
         <label class="field field-title">
           <span>¿Qué hay que hacer?</span>
           <input id="task-title" name="title" type="text" maxlength="140" autocomplete="off" placeholder="Ej. Pagar veterinario" required>

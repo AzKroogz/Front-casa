@@ -10,6 +10,7 @@ test('rowToTask maps database recurrence and all-household assignment', () => {
   });
   assert.equal(task.assigned_to, 'both');
   assert.equal(task.repeat_type, null);
+  assert.equal(task.icon_key, 'other');
 });
 
 test('rowToTask maps a real user id as assignee', () => {
@@ -20,6 +21,7 @@ test('rowToTask maps a real user id as assignee', () => {
   });
   assert.equal(task.assigned_to, 'user-123');
   assert.equal(task.repeat_type, 'monthly');
+  assert.equal(task.icon_key, 'other');
 });
 
 test('taskToRow maps both to assigned_to_all and null assignee', () => {
@@ -30,13 +32,15 @@ test('taskToRow maps both to assigned_to_all and null assignee', () => {
   assert.equal(row.assigned_to_all, true);
   assert.equal(row.assignee_user_id, null);
   assert.equal(row.repeat_type, 'none');
+  assert.equal(row.icon_key, 'other');
 });
 
 test('taskToRow preserves a concrete user id', () => {
   const row = taskToRow({
     title: 'Sacar basura', category: 'task', assigned_to: 'user-abc', due_date: '2026-10-12',
-    repeat_type: 'daily', repeat_interval: 1, show_days_before: 0, completed: false,
+    repeat_type: 'daily', repeat_interval: 1, show_days_before: 0, completed: false, icon_key: 'vehicle',
   });
   assert.equal(row.assigned_to_all, false);
   assert.equal(row.assignee_user_id, 'user-abc');
+  assert.equal(row.icon_key, 'vehicle');
 });

@@ -400,3 +400,19 @@ html.mode-tablet,
 
 /* Phone mode remains a normal scrollable document. */
 .mode-phone body { overflow-y: auto; }
+
+/* Visual task category picker */
+.icon-picker { margin: 4px 0 16px; }
+.icon-picker-label { display: block; margin-bottom: 8px; color: var(--muted); font-size: 13px; font-weight: 700; }
+.icon-options { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+.icon-option {
+  min-height: 58px; padding: 8px 6px; border: 1px solid var(--line); border-radius: 14px;
+  background: var(--surface-2); color: var(--text); font: inherit; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 23px;
+}
+.icon-option span { font-size: 11px; color: var(--muted); }
+.icon-option.active { border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 22%, transparent); }
+.task-icon { flex: 0 0 auto; width: 44px; text-align: center; font-size: 30px; line-height: 1; }
+@media (max-width: 700px) { .icon-options { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.mode-tablet .icon-options { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.mode-tablet .task-icon { width: 48px; font-size: 34px; }

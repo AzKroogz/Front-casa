@@ -86,6 +86,7 @@ test('normaliza una tarea simple con valores por defecto', () => {
   assert.deepEqual(result, {
     title: 'Lavar platos',
     category: 'task',
+    icon_key: 'other',
     assigned_to: 'both',
     due_date: null,
     repeat_type: null,
@@ -105,6 +106,11 @@ test('normaliza una compra y fecha opcional', () => {
   assert.equal(result.category, 'shopping');
   assert.equal(result.assigned_to, 'nico');
   assert.equal(result.due_date, '2026-10-18');
+});
+
+test('normaliza la categoría visual elegida y rechaza claves no soportadas', () => {
+  assert.equal(normalizeTaskInput({ title: 'Service', icon_key: 'vehicle' }).icon_key, 'vehicle');
+  assert.equal(normalizeTaskInput({ title: 'Algo', icon_key: 'inventado' }).icon_key, 'other');
 });
 
 test('rechaza títulos vacíos', () => {

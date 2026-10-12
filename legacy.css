@@ -195,6 +195,7 @@
   margin-bottom: 8px;
 }
 
+
 .legacy-browser .sleep-clock {
   font-size: 24vw;
   line-height: .9;
@@ -312,6 +313,7 @@
   }
 }
 
+
 /* Explicit fixed wall mode for old Android browsers. */
 html.legacy-browser.mode-tablet,
 .legacy-browser.mode-tablet body {
@@ -382,3 +384,39 @@ html.legacy-browser.mode-tablet,
   width: 48px;
   height: 48px;
 }
+
+/* Recurrence modal must own its scroll in fixed tablet mode. */
+.legacy-browser.mode-tablet .modal-backdrop {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 12px;
+}
+.legacy-browser.mode-tablet .task-modal {
+  max-height: calc(100vh - 24px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 auto;
+}
+
+/* Visual task categories for old Android. */
+.legacy-browser .icon-picker { margin: 4px 0 14px; }
+.legacy-browser .icon-picker-label { display: block; margin-bottom: 8px; color: #9aa4b2; font-weight: bold; }
+.legacy-browser .icon-options { display: block; }
+.legacy-browser .icon-option {
+  display: inline-block;
+  width: 15%;
+  min-width: 78px;
+  min-height: 54px;
+  margin: 0 5px 7px 0;
+  padding: 6px;
+  border: 1px solid #343b45;
+  border-radius: 12px;
+  background: #252c35;
+  color: #f4f6f8;
+  font-size: 22px;
+  text-align: center;
+}
+.legacy-browser .icon-option span { display: block; margin-top: 3px; color: #9aa4b2; font-size: 10px; }
+.legacy-browser .icon-option.active { border-color: #d7ff63; background: #303923; }
+.legacy-browser .task-icon { width: 46px; margin-right: 8px; text-align: center; font-size: 31px; line-height: 1; }
+.legacy-browser.mode-tablet .task-icon { width: 48px; font-size: 34px; }

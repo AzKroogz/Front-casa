@@ -1,3 +1,5 @@
+import { normalizeIconKey } from './task-icons.js';
+
 function parseDateParts(value) {
   if (!value) return null;
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
@@ -91,6 +93,7 @@ export function completeTask(task, today) {
   };
 }
 
+
 export function normalizeTaskInput(input) {
   const title = String(input.title ?? '').trim();
   if (!title) throw new Error('El título es obligatorio');
@@ -102,6 +105,7 @@ export function normalizeTaskInput(input) {
   return {
     title,
     category: input.category === 'shopping' ? 'shopping' : 'task',
+    icon_key: normalizeIconKey(input.icon_key),
     assigned_to: String(input.assigned_to || 'both'),
     due_date: dueDate,
     repeat_type: ['daily', 'weekly', 'monthly'].includes(repeatType) ? repeatType : null,
