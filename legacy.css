@@ -103,36 +103,146 @@
   margin-right: 10px;
 }
 
-.legacy-browser .summary-strip { margin: 0 -7px 18px; }
-.legacy-browser .summary-card { display: block; -webkit-flex: 1; flex: 1; margin: 0 7px; background: #171b21; border-color: #2a313b; }
-.legacy-browser .board:after { content: ""; display: table; clear: both; }
-.legacy-browser .column { float: left; width: 31.3%; min-height: 430px; margin-right: 3%; background: #171b21; border-color: #2a313b; }
-.legacy-browser .column:last-child { margin-right: 0; }
-.legacy-browser .task-list { display: block; }
-.legacy-browser .task-card { width: 100%; margin-bottom: 12px; background: #1e242c; color: #f4f6f8; }
-.legacy-browser .task-main { -webkit-flex: 1; flex: 1; margin: 0 10px; }
-.legacy-browser .meta-chip { display: inline-block; margin: 4px 5px 0 0; background: #272e37; }
-.legacy-browser .modal-backdrop { top: 0; right: 0; bottom: 0; left: 0; display: block; padding: 30px 20px; background: #090b0e; }
-.legacy-browser .task-modal { width: auto; max-width: 680px; margin: 0 auto; background: #171c22; }
-.legacy-browser .form-grid,
-.legacy-browser .recurrence-fields { display: block; }
-.legacy-browser .form-grid .field,
-.legacy-browser .recurrence-fields .field { margin-bottom: 14px; }
-.legacy-browser .field { display: block; margin-bottom: 16px; }
-.legacy-browser .field > span { display: block; margin-bottom: 8px; }
+.legacy-browser .summary-strip {
+  margin: 0 -7px 18px;
+}
 
-.legacy-browser .sleep-clock { font-size: 24vw; line-height: .9; font-weight: 800; }
-.legacy-browser .sleep-date { margin-top: 28px; font-size: 4vw; }
-.legacy-browser .sleep-summary { margin-top: 42px; font-size: 2.4vw; }
-.legacy-browser .sleep-screen { top: 0; right: 0; bottom: 0; left: 0; background: #090b0e; }
-.legacy-browser .form-error { background: #442d36; color: #ff9ba8; }
+.legacy-browser .summary-card {
+  display: block;
+  -webkit-flex: 1;
+  flex: 1;
+  margin: 0 7px;
+  background: #171b21;
+  border-color: #2a313b;
+}
+
+.legacy-browser .board:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.legacy-browser .column {
+  float: left;
+  width: 31.3%;
+  min-height: 430px;
+  margin-right: 3%;
+  background: #171b21;
+  border-color: #2a313b;
+}
+
+.legacy-browser .column:last-child {
+  margin-right: 0;
+}
+
+.legacy-browser .task-list {
+  display: block;
+}
+
+.legacy-browser .task-card {
+  width: 100%;
+  margin-bottom: 12px;
+  background: #1e242c;
+  color: #f4f6f8;
+}
+
+.legacy-browser .task-main {
+  -webkit-flex: 1;
+  flex: 1;
+  margin: 0 10px;
+}
+
+.legacy-browser .meta-chip {
+  display: inline-block;
+  margin: 4px 5px 0 0;
+  background: #272e37;
+}
+
+.legacy-browser .modal-backdrop {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  padding: 30px 20px;
+  background: #090b0e;
+}
+
+.legacy-browser .task-modal {
+  width: auto;
+  max-width: 680px;
+  margin: 0 auto;
+  background: #171c22;
+}
+
+.legacy-browser .form-grid,
+.legacy-browser .recurrence-fields {
+  display: block;
+}
+
+.legacy-browser .form-grid .field,
+.legacy-browser .recurrence-fields .field {
+  margin-bottom: 14px;
+}
+
+.legacy-browser .field {
+  display: block;
+  margin-bottom: 16px;
+}
+
+.legacy-browser .field > span {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.legacy-browser .sleep-clock {
+  font-size: 24vw;
+  line-height: .9;
+  font-weight: 800;
+}
+
+.legacy-browser .sleep-date {
+  margin-top: 28px;
+  font-size: 4vw;
+}
+
+.legacy-browser .sleep-summary {
+  margin-top: 42px;
+  font-size: 2.4vw;
+}
+.legacy-browser .sleep-screen {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #090b0e;
+}
+
+.legacy-browser .form-error {
+  background: #442d36;
+  color: #ff9ba8;
+}
 
 @media (max-width: 900px) {
-  .legacy-browser .column { float: none; width: auto; min-height: 0; margin: 0 0 16px; }
-  .legacy-browser .topbar { display: block; }
-  .legacy-browser .topbar-actions { margin-top: 16px; }
-  .legacy-browser .summary-strip { display: block; margin: 0 0 18px; }
-  .legacy-browser .summary-card { margin: 0 0 12px; }
+  .legacy-browser .column {
+    float: none;
+    width: auto;
+    min-height: 0;
+    margin: 0 0 16px;
+  }
+  .legacy-browser .topbar {
+    display: block;
+  }
+  .legacy-browser .topbar-actions {
+    margin-top: 16px;
+  }
+  .legacy-browser .summary-strip {
+    display: block;
+    margin: 0 0 18px;
+  }
+  .legacy-browser .summary-card {
+    margin: 0 0 12px;
+  }
 }
 
 .legacy-browser .auth-screen[hidden],
@@ -140,18 +250,50 @@
 .legacy-browser .modal-backdrop[hidden],
 .legacy-browser .sleep-screen[hidden],
 .legacy-browser .recurrence-fields[hidden],
-.legacy-browser .form-error[hidden] { display: none !important; }
+.legacy-browser .form-error[hidden] {
+  display: none !important;
+}
 
 /* Tablet-first overrides for old Android browsers */
 .legacy-browser .quick-templates,
-.legacy-browser .quick-dates { display: block; margin-bottom: 12px; }
+.legacy-browser .quick-dates {
+  display: block;
+  margin-bottom: 12px;
+}
 .legacy-browser .template-button,
-.legacy-browser .date-preset { display: inline-block; min-height: 44px; margin: 0 6px 8px 0; padding: 0 12px; border: 1px solid #343b45; border-radius: 12px; background: #252c35; color: #f4f6f8; font-weight: bold; }
-.legacy-browser .date-preset.active { background: #d7ff63; color: #11140a; border-color: #d7ff63; }
+.legacy-browser .date-preset {
+  display: inline-block;
+  min-height: 44px;
+  margin: 0 6px 8px 0;
+  padding: 0 12px;
+  border: 1px solid #343b45;
+  border-radius: 12px;
+  background: #252c35;
+  color: #f4f6f8;
+  font-weight: bold;
+}
+.legacy-browser .date-preset.active {
+  background: #d7ff63;
+  color: #11140a;
+  border-color: #d7ff63;
+}
 .legacy-browser .manual-date { margin-top: 6px; }
 .legacy-browser .manual-date[hidden] { display: none !important; }
 .legacy-browser #task-form { padding-bottom: 92px; }
-.legacy-browser .modal-actions { position: fixed; left: 20px; right: 20px; bottom: 16px; z-index: 120; margin: 0; padding: 12px; background: #171c22; border: 1px solid #343b45; border-radius: 16px; -webkit-justify-content: flex-end; justify-content: flex-end; }
+.legacy-browser .modal-actions {
+  position: fixed;
+  left: 20px;
+  right: 20px;
+  bottom: 16px;
+  z-index: 120;
+  margin: 0;
+  padding: 12px;
+  background: #171c22;
+  border: 1px solid #343b45;
+  border-radius: 16px;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
 
 @media (max-width: 900px) {
   .legacy-browser .app-shell { padding: 12px 14px 26px; }
@@ -163,45 +305,80 @@
   .legacy-browser .task-card { min-height: 106px; padding: 16px; }
   .legacy-browser .task-title { font-size: 23px; }
   .legacy-browser .task-complete { width: 56px; height: 56px; }
-  .legacy-browser .task-modal { max-height: none; height: auto; margin: 0 auto 90px; }
+  .legacy-browser .task-modal {
+    max-height: none;
+    height: auto;
+    margin: 0 auto 90px;
+  }
 }
 
-/* Shared tablet-first overrides: this file loads after styles.css on every browser. */
-.quick-templates,
-.quick-dates { display:flex; flex-wrap:wrap; gap:8px; }
-.quick-templates { margin:0 0 18px; }
-.template-button,
-.date-preset { min-height:42px; border:1px solid var(--line); border-radius:13px; background:var(--surface-2); color:var(--text); padding:0 13px; font-weight:800; cursor:pointer; }
-.template-button { font-size:15px; }
-.template-button span { margin-left:4px; }
-.date-preset.active { background:var(--accent); color:var(--accent-ink); border-color:var(--accent); }
-.manual-date { margin-top:9px; }
-.manual-date[hidden] { display:none; }
-.modal-actions { position:sticky; bottom:-24px; z-index:4; margin:22px -24px -24px; padding:16px 24px 24px; background:#171c22; border-top:1px solid var(--line); }
-.sleep-clock { font-size:clamp(120px,24vw,280px); line-height:.9; letter-spacing:-.07em; font-weight:850; font-variant-numeric:tabular-nums; }
-.sleep-date { margin:28px 0 0; font-size:clamp(24px,4vw,38px); }
-.sleep-summary { margin:44px auto 0; font-size:clamp(17px,2.3vw,24px); }
-
-@media (max-width:900px) {
-  .app-shell { padding:14px 16px 28px; }
-  .topbar { margin-bottom:12px; }
-  .brand-mark { width:48px; height:48px; border-radius:15px; font-size:26px; }
-  .brand-block { gap:12px; }
-  .date-line { margin-top:3px; font-size:15px; }
-  .summary-strip { display:none; }
-  .board { gap:12px; }
-  .column { padding:18px; border-radius:18px; }
-  .column-header { margin-bottom:12px; }
-  .column-header h2 { font-size:30px; }
-  .task-card { min-height:108px; padding:17px; }
-  .task-title { font-size:23px; }
-  .task-complete { width:56px; height:56px; border-radius:17px; }
-  .mini-button { width:48px; height:48px; }
-  .task-meta { font-size:14px; }
-  .task-modal { max-height:92vh; }
-  .quick-templates { margin-bottom:14px; }
-  .template-button, .date-preset { min-height:46px; }
+/* Explicit fixed wall mode for old Android browsers. */
+html.legacy-browser.mode-tablet,
+.legacy-browser.mode-tablet body {
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
 }
-@media (max-width:560px) {
-  .modal-actions { bottom:-20px; margin:18px -18px -20px; padding:14px 18px calc(16px + env(safe-area-inset-bottom)); }
+.legacy-browser.mode-tablet .app-shell {
+  width: auto;
+  max-width: none;
+  height: 100vh;
+  min-height: 0;
+  padding: 10px 12px 12px;
+  overflow: hidden;
+}
+.legacy-browser.mode-tablet .topbar {
+  display: -webkit-flex;
+  display: flex;
+  min-height: 58px;
+  margin: 0 0 8px;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.legacy-browser.mode-tablet .brand-mark {
+  width: 42px;
+  height: 42px;
+  font-size: 23px;
+}
+.legacy-browser.mode-tablet .date-line {
+  margin-top: 2px;
+  font-size: 13px;
+}
+.legacy-browser.mode-tablet .status-pill,
+.legacy-browser.mode-tablet .summary-strip,
+.legacy-browser.mode-tablet .column-kicker {
+  display: none;
+}
+.legacy-browser.mode-tablet .topbar-actions { margin-top: 0; }
+.legacy-browser.mode-tablet .board {
+  height: calc(100vh - 88px);
+  overflow: hidden;
+}
+.legacy-browser.mode-tablet .column {
+  float: left;
+  width: 32%;
+  height: 100%;
+  min-height: 0;
+  margin: 0 2% 0 0;
+  padding: 12px;
+  overflow: hidden;
+}
+.legacy-browser.mode-tablet .column:last-child { margin-right: 0; }
+.legacy-browser.mode-tablet .column-header { margin-bottom: 8px; }
+.legacy-browser.mode-tablet .column-header h2 { font-size: 24px; }
+.legacy-browser.mode-tablet .task-list {
+  height: calc(100% - 52px);
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.legacy-browser.mode-tablet .task-card {
+  min-height: 86px;
+  padding: 12px;
+  margin-bottom: 9px;
+}
+.legacy-browser.mode-tablet .task-title { font-size: 20px; }
+.legacy-browser.mode-tablet .task-complete {
+  width: 48px;
+  height: 48px;
 }
