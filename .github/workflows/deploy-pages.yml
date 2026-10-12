@@ -21,16 +21,38 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Validate deployment configuration
+        run: |
+          test -n "$SUPABASE_URL" || (echo "Missing SUPABASE_URL secret" && exit 1)
+          test -n "$SUPABASE_PUBLISHABLE_KEY" || (echo "Missing SUPABASE_PUBLISHABLE_KEY secret" && exit 1)
+
       - name: Prepare static site
         run: |
           mkdir -p _site
-          cp index.html styles.css app.js _site/
+          cp index.html styles.css app.js config.js _site/
           cp -r src _site/src
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          config = {
+              "SUPABASE_URL": os.environ["SUPABASE_URL"],
+              "SUPABASE_PUBLISHABLE_KEY": os.environ["SUPABASE_PUBLISHABLE_KEY"],
+          }
+          Path("_site/config.js").write_text(
+              "window.__APP_CONFIG__ = " + json.dumps(config) + ";\n",
+              encoding="utf-8",
+          )
+          PY
           touch _site/.nojekyll
 
       - name: Configure GitHub Pages
