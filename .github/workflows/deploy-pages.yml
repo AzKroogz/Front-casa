@@ -34,11 +34,15 @@ jobs:
           test -n "$SUPABASE_URL" || (echo "Missing SUPABASE_URL secret" && exit 1)
           test -n "$SUPABASE_PUBLISHABLE_KEY" || (echo "Missing SUPABASE_PUBLISHABLE_KEY secret" && exit 1)
 
+      - name: Run tests
+        run: npm test
+
       - name: Prepare static site
         run: |
           mkdir -p _site
-          cp index.html styles.css legacy.css tablet-portrait.css app.js legacy-domain.js legacy-render.js legacy-api.js legacy-app.js config.js _site/
+          cp index.html styles.css legacy.css tablet-portrait.css app.js legacy-domain.js legacy-render.js legacy-api.js legacy-app.js pwa.js sw.js manifest.webmanifest config.js _site/
           cp -r src _site/src
+          cp -r icons _site/icons
           python3 - <<'PY'
           import json
           import os
@@ -53,6 +57,7 @@ jobs:
               encoding="utf-8",
           )
           PY
+          cat config.js >> _site/config.js
           touch _site/.nojekyll
 
       - name: Configure GitHub Pages
