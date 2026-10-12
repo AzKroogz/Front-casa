@@ -23,6 +23,7 @@
   </script>
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./legacy.css">
+  <link rel="stylesheet" href="./tablet-portrait.css">
 </head>
 <body>
   <section class="auth-screen" id="auth-screen">
@@ -102,7 +103,10 @@
             <p class="column-kicker">LISTA</p>
             <h2>Compras</h2>
           </div>
-          <span class="count-badge" id="shopping-count">0</span>
+          <div class="column-header-actions">
+            <span class="count-badge" id="shopping-count">0</span>
+            <button class="shopping-toggle" id="shopping-toggle" type="button" aria-expanded="false">Ver lista</button>
+          </div>
         </div>
         <div class="task-list" id="shopping-list"></div>
       </article>

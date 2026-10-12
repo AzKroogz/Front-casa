@@ -25,7 +25,7 @@ const refs = {
   date: document.querySelector('#date-line'), status: document.querySelector('#connection-status'),
   pending: document.querySelector('#pending-count'), reminder: document.querySelector('#next-reminder'),
   todayList: document.querySelector('#today-list'), weekList: document.querySelector('#week-list'), shoppingList: document.querySelector('#shopping-list'),
-  todayCount: document.querySelector('#today-count'), weekCount: document.querySelector('#week-count'), shoppingCount: document.querySelector('#shopping-count'),
+  todayCount: document.querySelector('#today-count'), weekCount: document.querySelector('#week-count'), shoppingCount: document.querySelector('#shopping-count'), shoppingToggle: document.querySelector('#shopping-toggle'),
   addButton: document.querySelector('#add-button'), modal: document.querySelector('#task-modal'), form: document.querySelector('#task-form'),
   formTitle: document.querySelector('#form-title'), closeModal: document.querySelector('#close-modal'), cancelModal: document.querySelector('#cancel-modal'),
   title: document.querySelector('#task-title'), category: document.querySelector('#task-category'), assigned: document.querySelector('#task-assigned'),
@@ -61,6 +61,7 @@ function populateAssignees(members = []) {
   refs.assigned.append(both);
   members.forEach(member => refs.assigned.append(new Option(member.displayName, member.userId)));
 }
+
 
 function repeatLabel(task) {
   if (!task.repeat_type) return null;
@@ -132,6 +133,13 @@ function render() {
   renderList(refs.shoppingList, dashboard.shopping, 'La lista de compras está vacía.', today);
 }
 
+
+function setShoppingExpanded(expanded) {
+  document.documentElement.classList.toggle('shopping-expanded', expanded);
+  refs.shoppingToggle.setAttribute('aria-expanded', String(expanded));
+  refs.shoppingToggle.textContent = expanded ? '← Tareas' : 'Ver lista';
+}
+
 function updateSleepView() {
   const now = new Date();
   const today = isoToday();
@@ -147,44 +155,40 @@ function updateSleepView() {
 function enterSleep() {
   if (sleeping || !refs.modal.hidden) return;
   sleeping = true;
-  updateSleepView();
+ updateSleepView();
   refs.sleepScreen.hidden = false;
 }
 
 function wake() {
-  lastInteraction = Date.now();
   if (!sleeping) return;
   sleeping = false;
   refs.sleepScreen.hidden = true;
+  lastInteraction = Date.now();
 }
 
-function noteInteraction(event) {
-  if (sleeping) {
-    event.preventDefault();
-    wake();
-    return;
-  }
-  lastInteraction = Date.now();
+function noteInteraction() {
+  if (sleeping) wake();
+  else lastInteraction = Date.now();
 }
 
 function updateConnectionStatus() {
   const online = navigator.onLine;
-  refs.status.textContent = online ? '● En línea' : '● Sin conexión';
+  refs.status.textContent = online ? '● En línea' : '● Sin conexión local';
   refs.status.classList.toggle('offline', !online);
 }
 
-function setDatePreset(preset, existingDate = '') {
+function setDatePreset(preset, existingValue = '') {
   refs.datePresetButtons.forEach(button => button.classList.toggle('active', button.dataset.datePreset === preset));
   const custom = preset === 'custom';
   refs.manualDateWrap.hidden = !custom;
   if (custom) {
-    const value = existingDate || refs.due.value;
-    refs.due.value = value || '';
+    const value = existingValue || refs.due.value || '';
+    refs.due.value = value;
     refs.dueManual.value = formatManualDate(value);
     return;
   }
   refs.dueManual.value = '';
-  refs.due.value = resolveQuickDate(preset, isoToday()) || '';
+  refs.due.value = resolveQuickDate(preset, isoToday()) ?? '';
 }
 
 function syncManualDate() {
@@ -383,6 +387,7 @@ setInterval(() => {
   if (sleeping) updateSleepView();
 }, 1000);
 refs.addButton.addEventListener('click', () => openModal()); refs.closeModal.addEventListener('click', closeModal); refs.cancelModal.addEventListener('click', closeModal);
+refs.shoppingToggle.addEventListener('click', () => setShoppingExpanded(!document.documentElement.classList.contains('shopping-expanded')));
 refs.repeat.addEventListener('change', updateRecurrenceFields); refs.form.addEventListener('submit', handleSubmit);
 refs.datePresetButtons.forEach(button => button.addEventListener('click', () => setDatePreset(button.dataset.datePreset, refs.due.value)));
 refs.dueManual.addEventListener('blur', () => { if (syncManualDate()) refs.error.hidden = true; });

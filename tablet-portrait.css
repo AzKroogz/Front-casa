@@ -1,0 +1,357 @@
+/* Portrait wall-tablet overrides. Loaded last so old Android and modern browsers agree. */
+.mode-tablet .column-header-actions,
+.legacy-browser.mode-tablet .column-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shopping-toggle {
+  display: none;
+}
+
+.mode-tablet .shopping-toggle,
+.legacy-browser.mode-tablet .shopping-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 11px;
+  border: 1px solid #343b45;
+  border-radius: 11px;
+  background: #252c35;
+  color: #f4f6f8;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* Modern portrait tablet: tasks get the space, shopping is a compact widget. */
+.mode-tablet .board {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr) 150px;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.mode-tablet .column {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  padding: 10px 12px;
+  overflow: hidden;
+}
+
+.mode-tablet .column-header {
+  margin-bottom: 7px;
+}
+
+.mode-tablet .column-header h2 {
+  font-size: 24px;
+}
+
+.mode-tablet .task-list {
+  min-height: 0;
+  height: calc(100% - 48px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  align-content: start;
+  padding-right: 2px;
+}
+
+/* Four explicit regions: complete, visual icon, content, actions. */
+.mode-tablet .task-card {
+  min-height: 82px;
+  padding: 10px 11px;
+  display: grid;
+  grid-template-columns: 48px 52px minmax(0, 1fr) auto;
+  gap: 9px;
+  align-items: center;
+}
+
+.mode-tablet .task-complete {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  padding: 0;
+}
+
+.mode-tablet .task-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border: 1px solid #343b45;
+  border-radius: 13px;
+  background: #252c35;
+  font-size: 27px;
+  line-height: 1;
+  overflow: hidden;
+  font-family: "Noto Color Emoji", "Android Emoji", sans-serif;
+}
+
+.mode-tablet .task-main {
+  min-width: 0;
+}
+
+.mode-tablet .task-title {
+  font-size: 20px;
+  overflow-wrap: anywhere;
+}
+
+.mode-tablet .task-actions {
+  flex: 0 0 auto;
+}
+
+.mode-tablet .column-shopping {
+  height: 150px;
+  border-color: rgba(215,255,99,.22);
+  background: linear-gradient(180deg, rgba(215,255,99,.045), rgba(23,27,33,.86));
+}
+
+.mode-tablet .column-shopping .task-list {
+  height: calc(100% - 42px);
+}
+
+.mode-tablet .column-shopping .task-card {
+  min-height: 62px;
+  padding: 7px 9px;
+  grid-template-columns: 40px 42px minmax(0, 1fr);
+  gap: 8px;
+}
+
+.mode-tablet .column-shopping .task-complete {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+}
+
+.mode-tablet .column-shopping .task-icon {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  font-size: 24px;
+}
+
+.mode-tablet .column-shopping .task-title {
+  font-size: 17px;
+}
+
+.mode-tablet .column-shopping .task-meta,
+.mode-tablet .column-shopping .task-actions {
+  display: none;
+}
+
+.mode-tablet.shopping-expanded .column-today,
+.mode-tablet.shopping-expanded .column-week {
+  display: none;
+}
+
+.mode-tablet.shopping-expanded .board {
+  grid-template-rows: minmax(0, 1fr);
+}
+
+.mode-tablet.shopping-expanded .column-shopping {
+  height: 100%;
+  grid-row: 1;
+}
+
+.mode-tablet.shopping-expanded .column-shopping .task-list {
+  height: calc(100% - 48px);
+}
+
+.mode-tablet.shopping-expanded .column-shopping .task-card {
+  min-height: 82px;
+  padding: 10px 11px;
+  grid-template-columns: 48px 52px minmax(0, 1fr) auto;
+  gap: 9px;
+}
+
+.mode-tablet.shopping-expanded .column-shopping .task-complete {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+}
+
+.mode-tablet.shopping-expanded .column-shopping .task-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  font-size: 27px;
+}
+
+.mode-tablet.shopping-expanded .column-shopping .task-title {
+  font-size: 20px;
+}
+
+.mode-tablet.shopping-expanded .column-shopping .task-meta,
+.mode-tablet.shopping-expanded .column-shopping .task-actions {
+  display: flex;
+}
+
+/* Same portrait hierarchy for the old Ceibal browser. */
+.legacy-browser.mode-tablet .board {
+  height: calc(100vh - 88px);
+  overflow: hidden;
+}
+
+.legacy-browser.mode-tablet .column {
+  float: none;
+  width: auto;
+  height: auto;
+  min-height: 0;
+  margin: 0 0 8px;
+  padding: 10px 12px;
+  overflow: hidden;
+}
+
+.legacy-browser.mode-tablet .column-today,
+.legacy-browser.mode-tablet .column-week {
+  height: calc((100% - 166px) / 2);
+}
+
+.legacy-browser.mode-tablet .column-shopping {
+  height: 150px;
+  margin-bottom: 0;
+  border-color: #46512a;
+}
+
+.legacy-browser.mode-tablet .task-list {
+  height: calc(100% - 48px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.legacy-browser.mode-tablet .task-card {
+  display: -webkit-flex;
+  display: flex;
+  min-height: 82px;
+  padding: 10px 11px;
+  margin-bottom: 8px;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.legacy-browser.mode-tablet .task-complete {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  -webkit-flex: 0 0 48px;
+  flex: 0 0 48px;
+}
+
+.legacy-browser.mode-tablet .task-icon {
+  display: block;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  -webkit-flex: 0 0 48px;
+  flex: 0 0 48px;
+  margin: 0 8px 0 0;
+  border: 1px solid #343b45;
+  border-radius: 12px;
+  background: #252c35;
+  font-size: 27px;
+  line-height: 48px;
+  text-align: center;
+  overflow: hidden;
+  font-family: "Noto Color Emoji", "Android Emoji", Arial, sans-serif;
+}
+
+.legacy-browser.mode-tablet .task-main {
+  min-width: 0;
+  -webkit-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.legacy-browser.mode-tablet .task-actions {
+  -webkit-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+
+.legacy-browser.mode-tablet .column-shopping .task-list {
+  height: calc(100% - 42px);
+}
+
+.legacy-browser.mode-tablet .column-shopping .task-card {
+  min-height: 62px;
+  padding: 7px 9px;
+}
+
+.legacy-browser.mode-tablet .column-shopping .task-complete {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  -webkit-flex-basis: 40px;
+  flex-basis: 40px;
+}
+
+.legacy-browser.mode-tablet .column-shopping .task-icon {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  -webkit-flex-basis: 42px;
+  flex-basis: 42px;
+  font-size: 24px;
+  line-height: 42px;
+}
+
+.legacy-browser.mode-tablet .column-shopping .task-title {
+  font-size: 17px;
+}
+
+.legacy-browser.mode-tablet .column-shopping .task-meta,
+.legacy-browser.mode-tablet .column-shopping .task-actions {
+  display: none;
+}
+
+.legacy-browser.mode-tablet.shopping-expanded .column-today,
+.legacy-browser.mode-tablet.shopping-expanded .column-week {
+  display: none;
+}
+
+.legacy-browser.mode-tablet.shopping-expanded .column-shopping {
+  height: 100%;
+  margin-bottom: 0;
+}
+
+.legacy-browser.mode-tablet.shopping-expanded .column-shopping .task-list {
+  height: calc(100% - 48px);
+}
+
+.legacy-browser.mode-tablet.shopping-expanded .column-shopping .task-card {
+  min-height: 82px;
+  padding: 10px 11px;
+}
+
+.legacy-browser.mode-tablet.shopping-expanded .column-shopping .task-complete {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  -webkit-flex-basis: 48px;
+  flex-basis: 48px;
+}
+
+.legacy-browser.mode-tablet.shopping-expanded .column-shopping .task-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  -webkit-flex-basis: 48px;
+  flex-basis: 48px;
+  font-size: 27px;
+  line-height: 48px;
+}
+
+.legacy-browser.mode-tablet.shopping-expanded .column-shopping .task-title {
+  font-size: 20px;
+}
+
+.legacy-browser.mode-tablet.shopping-expanded .column-shopping .task-meta,
+.legacy-browser.mode-tablet.shopping-expanded .column-shopping .task-actions {
+  display: -webkit-flex;
+  display: flex;
+}
