@@ -135,3 +135,8 @@ test('completar dos veces una recurrente el mismo día no avanza dos ocurrencias
   assert.equal(once.due_date, '2026-10-18');
   assert.equal(twice.due_date, '2026-10-18');
 });
+
+test('acepta un id real de usuario como asignación', () => {
+  const result = normalizeTaskInput({ title: 'Sacar basura', assigned_to: '8b3d-user-id' });
+  assert.equal(result.assigned_to, '8b3d-user-id');
+});

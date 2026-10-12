@@ -206,3 +206,25 @@ body.modal-open { overflow: hidden; }
 .sleep-summary { margin: 38px auto 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; color: #d8dde4; font-size: clamp(16px, 2.2vw, 22px); }
 .sleep-dot { color: #4c5562; }
 .sleep-hint { margin: 60px 0 0; color: #59616c; font-size: 13px; }
+
+.auth-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.auth-card {
+  width: min(420px, 100%);
+  padding: 28px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 24px;
+  background: #1d232b;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+}
+
+.auth-brand { margin-bottom: 18px; }
+.auth-copy { margin: 8px 0 24px; opacity: .72; }
+.auth-card form { display: grid; gap: 16px; }
+.auth-submit { width: 100%; margin-top: 4px; }
+.compact-button { min-height: 42px; padding: 0 14px; }

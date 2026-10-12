@@ -8,7 +8,28 @@
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <main class="app-shell" id="app-shell">
+  <section class="auth-screen" id="auth-screen">
+    <div class="auth-card">
+      <div class="brand-mark auth-brand" aria-hidden="true">⌂</div>
+      <p class="eyebrow">TABLERO DE CASA</p>
+      <h1>Entrar</h1>
+      <p class="auth-copy">Acceso privado para integrantes de la casa.</p>
+      <form id="login-form">
+        <label class="field">
+          <span>Correo</span>
+          <input id="login-email" type="email" autocomplete="username" required>
+        </label>
+        <label class="field">
+          <span>Contraseña</span>
+          <input id="login-password" type="password" autocomplete="current-password" required>
+        </label>
+        <p class="form-error" id="login-error" role="alert" hidden></p>
+        <button class="primary-button auth-submit" type="submit">Entrar</button>
+      </form>
+    </div>
+  </section>
+
+  <main class="app-shell" id="app-shell" hidden>
     <header class="topbar">
       <div class="brand-block">
         <div class="brand-mark" aria-hidden="true">⌂</div>
@@ -20,6 +41,7 @@
       </div>
       <div class="topbar-actions">
         <span class="status-pill" id="connection-status">● En línea</span>
+        <button class="secondary-button compact-button" id="signout-button" type="button">Salir</button>
         <button class="primary-button" id="add-button" type="button">＋ Agregar</button>
       </div>
     </header>
@@ -113,8 +135,6 @@
             <span>Para</span>
             <select id="task-assigned" name="assigned_to">
               <option value="both">Ambos</option>
-              <option value="nico">Nico</option>
-              <option value="diana">Diana</option>
             </select>
           </label>
           <label class="field">
@@ -156,6 +176,8 @@
     </section>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js" crossorigin="anonymous"></script>
+  <script src="./config.js"></script>
   <script type="module" src="./app.js"></script>
 </body>
 </html>

@@ -1,10 +1,14 @@
-import { LocalTaskRepository } from './src/local-task-repository.js';
+import { SupabaseTaskRepository } from './src/supabase-task-repository.js';
+import { createSupabaseBrowserClient, ensureOwnProfile, loadHouseholdContext } from './src/supabase-client.js';
 import { buildDashboard } from './src/task-view-model.js';
 import { classifyTask, completeTask, normalizeTaskInput } from './src/task-domain.js';
 import { shouldEnterIdle } from './src/idle.js';
 
-const repo = new LocalTaskRepository();
+let client = null;
+let repo = null;
+let repoUnsubscribe = null;
 let tasks = [];
+let memberNames = new Map();
 let editingId = null;
 const inFlight = new Set();
 const IDLE_TIMEOUT_MS = 60000;
@@ -12,6 +16,9 @@ let lastInteraction = Date.now();
 let sleeping = false;
 
 const refs = {
+  appShell: document.querySelector('#app-shell'), authScreen: document.querySelector('#auth-screen'),
+  loginForm: document.querySelector('#login-form'), loginEmail: document.querySelector('#login-email'), loginPassword: document.querySelector('#login-password'),
+  loginError: document.querySelector('#login-error'), signoutButton: document.querySelector('#signout-button'),
   date: document.querySelector('#date-line'), status: document.querySelector('#connection-status'),
   pending: document.querySelector('#pending-count'), reminder: document.querySelector('#next-reminder'),
   todayList: document.querySelector('#today-list'), weekList: document.querySelector('#week-list'), shoppingList: document.querySelector('#shopping-list'),
@@ -37,9 +44,16 @@ function prettyDate(value, options = { weekday: 'long', day: 'numeric', month: '
 }
 
 function assigneeLabel(value) {
-  if (value === 'nico') return 'Nico';
-  if (value === 'diana') return 'Diana';
-  return 'Ambos';
+  if (!value || value === 'both') return 'Ambos';
+  return memberNames.get(value) || 'Integrante';
+}
+
+function populateAssignees(members = []) {
+  memberNames = new Map(members.map(member => [member.userId, member.displayName]));
+  refs.assigned.replaceChildren();
+  const both = new Option('Ambos', 'both');
+  refs.assigned.append(both);
+  members.forEach(member => refs.assigned.append(new Option(member.displayName, member.userId)));
 }
 
 function repeatLabel(task) {
@@ -108,7 +122,6 @@ function render() {
   renderList(refs.weekList, dashboard.week, 'La semana está despejada.', today);
   renderList(refs.shoppingList, dashboard.shopping, 'La lista de compras está vacía.', today);
 }
-
 
 function updateSleepView() {
   const now = new Date();
@@ -211,10 +224,103 @@ async function handleTaskAction(event) {
   }
 }
 
-async function init() {
+function setAuthError(message = '') {
+  refs.loginError.textContent = message;
+  refs.loginError.hidden = !message;
+}
+
+function showLogin(message = '') {
+  if (repoUnsubscribe) repoUnsubscribe();
+  repoUnsubscribe = null;
+  repo = null;
+  tasks = [];
+  memberNames = new Map();
+  refs.appShell.hidden = true;
+  refs.authScreen.hidden = false;
+  setAuthError(message);
+}
+
+async function openHousehold(user) {
+  await ensureOwnProfile(client, user);
+  const context = await loadHouseholdContext(client, user);
+  if (!context) {
+    showLogin('Tu cuenta existe, pero todavía no tiene acceso a Casa.');
+    return;
+  }
+
+  populateAssignees(context.members);
+  repo = new SupabaseTaskRepository(client, context.householdId, user.id);
   tasks = await repo.list();
-  repo.subscribe(next => { tasks = next; render(); });
-  updateConnectionStatus(); render(); updateSleepView();
+  if (repoUnsubscribe) repoUnsubscribe();
+  repoUnsubscribe = repo.subscribe(next => { tasks = next; render(); updateSleepView(); });
+  refs.authScreen.hidden = true;
+  refs.appShell.hidden = false;
+  setAuthError('');
+  updateConnectionStatus();
+  render();
+  updateSleepView();
+}
+
+async function handleSession(session) {
+  if (!session?.user) {
+    showLogin();
+    return;
+  }
+  try {
+    await openHousehold(session.user);
+  } catch (error) {
+    console.error(error);
+    showLogin('No se pudo cargar Casa. Revisá tu acceso e intentá de nuevo.');
+  }
+}
+
+async function handleLogin(event) {
+  event.preventDefault();
+  setAuthError('');
+  const button = refs.loginForm.querySelector('button[type="submit"]');
+  button.disabled = true;
+  try {
+    const { data, error } = await client.auth.signInWithPassword({
+      email: refs.loginEmail.value.trim(),
+      password: refs.loginPassword.value,
+    });
+    if (error) throw error;
+    await handleSession(data.session);
+    refs.loginPassword.value = '';
+  } catch (error) {
+    setAuthError(error?.message || 'No se pudo iniciar sesión.');
+  } finally {
+    button.disabled = false;
+  }
+}
+
+async function init() {
+  try {
+    client = createSupabaseBrowserClient(window);
+  } catch (error) {
+    showLogin(error.message);
+    return;
+  }
+
+  refs.loginForm.addEventListener('submit', handleLogin);
+  refs.signoutButton.addEventListener('click', async () => {
+    await client.auth.signOut();
+    showLogin();
+  });
+
+  client.auth.onAuthStateChange((event, session) => {
+    if (event === 'SIGNED_OUT') showLogin();
+    if (event === 'SIGNED_IN' && session?.user && refs.appShell.hidden) {
+      queueMicrotask(() => handleSession(session));
+    }
+  });
+
+  const { data, error } = await client.auth.getSession();
+  if (error) {
+    showLogin(error.message);
+    return;
+  }
+  await handleSession(data.session);
 }
 
 window.addEventListener('online', updateConnectionStatus); window.addEventListener('offline', updateConnectionStatus);

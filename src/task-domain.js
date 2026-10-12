@@ -91,7 +91,6 @@ export function completeTask(task, today) {
   };
 }
 
-
 export function normalizeTaskInput(input) {
   const title = String(input.title ?? '').trim();
   if (!title) throw new Error('El título es obligatorio');
@@ -103,7 +102,7 @@ export function normalizeTaskInput(input) {
   return {
     title,
     category: input.category === 'shopping' ? 'shopping' : 'task',
-    assigned_to: ['nico', 'diana', 'both'].includes(input.assigned_to) ? input.assigned_to : 'both',
+    assigned_to: String(input.assigned_to || 'both'),
     due_date: dueDate,
     repeat_type: ['daily', 'weekly', 'monthly'].includes(repeatType) ? repeatType : null,
     repeat_interval: Math.max(1, Number.parseInt(input.repeat_interval ?? 1, 10) || 1),
